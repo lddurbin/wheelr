@@ -9,7 +9,8 @@
 
 \describe{
 \item{month}{Each month of the year for which Pounds Scrapped is reported.}
-\item{one, two, three}{Year One, Year Two, and Year Three of the reporting period.}
+\item{year}{The reporting year.}
+\item{value}{Number of pounds of scrap per 1000 pounds of finished product.}
 }
 }
 }

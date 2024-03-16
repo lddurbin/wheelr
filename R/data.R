@@ -10,7 +10,8 @@
 #' @format ## `pounds_scrapped` A data frame with 12 rows and 4 columns:
 #' \describe{
 #'   \item{month}{Each month of the year for which Pounds Scrapped is reported.}
-#'   \item{one, two, three}{Year One, Year Two, and Year Three of the reporting period.}
+#'   \item{year}{The reporting year.}
+#'   \item{value}{Number of pounds of scrap per 1000 pounds of finished product.}
 #' }
 #' @source Wheeler, Donald J. Understanding Variation: The Key to Managing
 #'   Chaos. 2nd edition, SPC Press, 2000
