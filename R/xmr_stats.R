@@ -53,12 +53,18 @@ moving_ranges <- function(data, date_col, value_col) {
 average_moving_range <- function(data, date_col, moving_range_col, ...) {
   moving_range_avg <- NULL
 
+  if (nrow(data) < 4) {
+    warning("Dataset must contain at least four rows for moving range calculation.")
+    return(NA_real_)  # Return NA to indicate the calculation can't be performed
+  }
+
   mr_avg <- data |>
-    filter(...) |>
     arrange({{ date_col }}) |>
     dplyr::slice(-1) |>
+    filter(...) |>
     summarise(moving_range_avg = mean({{ moving_range_col }}, na.rm = TRUE)) |>
     dplyr::pull(moving_range_avg)
 
   return(mr_avg)
 }
+
