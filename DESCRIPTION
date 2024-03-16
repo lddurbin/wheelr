@@ -1,9 +1,10 @@
 Package: wheelr
-Title: What the Package Does (One Line, Title Case)
+Title: Understanding Variation
 Version: 0.0.0.9000
 Authors@R: 
     person("Lee", "Durbin", , "l.d.durbin@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: A simple tool for applying statistical process control techniques 
+  for understanding variation, based on the teachings of Donald J. Wheeler.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

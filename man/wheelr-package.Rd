@@ -4,9 +4,9 @@
 \name{wheelr-package}
 \alias{wheelr}
 \alias{wheelr-package}
-\title{wheelr: What the Package Does (One Line, Title Case)}
+\title{wheelr: Understanding Variation}
 \description{
-What the package does (one paragraph).
+A simple tool for applying statistical process control techniques for understanding variation, based on the teachings of Donald J. Wheeler.
 }
 \seealso{
 Useful links:
