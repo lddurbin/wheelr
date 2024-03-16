@@ -1,41 +1,9 @@
-pounds_scrapped <- tibble::tribble(
-  ~month,	~year,	~value,
-  "Jan",	  1,	    133,
-  "Jan",	  2,	    142,
-  "Jan",	  3,	    134,
-  "Feb",	  1,	    128,
-  "Feb",	  2,	    140,
-  "Feb",	  3,	    139,
-  "Mar",	  1,	    128,
-  "Mar",	  2,	    131,
-  "Mar",	  3,	    143,
-  "Apr",	  1,	    123,
-  "Apr",	  2,	    126,
-  "Apr",	  3,	    131,
-  "May",	  1,	    124,
-  "May",	  2,	    124,
-  "May",	  3,	    126,
-  "Jun",	  1,	    124,
-  "Jun",	  2,	    126,
-  "Jun",	  3,	    125,
-  "Jul",	  1,	    126,
-  "Jul",	  2,	    124,
-  "Jul",	  3,	    124,
-  "Aug",	  1,	    124,
-  "Aug",	  2,	    126,
-  "Aug",	  3,	    NA,
-  "Sep",	  1,	    126,
-  "Sep",	  2,	    123,
-  "Sep",	  3,	    NA,
-  "Oct",	  1,	    124,
-  "Oct",	  2,	    125,
-  "Oct",	  3,	    NA,
-  "Nov",	  1,	    129,
-  "Nov",	  2,	    133,
-  "Nov",	  3,	    NA,
-  "Dec",	  1,	    135,
-  "Dec",	  2,	    134,
-  "Dec",	  3,	    NA
+pounds_scrapped <- tibble::tibble(
+  date = seq(as.Date("2022-01-01"), as.Date("2024-12-01"), by = "month"),
+  value = c(133, 128, 128, 123, 124, 124, 126, 124, 126, 124, 129, 135, 142,
+            140, 131, 126, 124, 126, 124, 126, 123, 125, 133, 134, 134, 139,
+            143, 131, 126, 125, 124,  NA,  NA,  NA,  NA,  NA)
 )
+
 
 usethis::use_data(pounds_scrapped, overwrite = TRUE)
