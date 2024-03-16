@@ -6,6 +6,7 @@
 #' @importFrom dplyr filter
 #' @importFrom dplyr mutate
 #' @importFrom dplyr summarise
+#' @importFrom rlang :=
 #' @importFrom tibble tribble
 ## usethis namespace: end
 NULL

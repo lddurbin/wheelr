@@ -28,18 +28,20 @@ moving_ranges <- function(data, date_col, value_col) {
 }
 
 
-#' Compute the average moving range
-#'
-#' @description Calculate the average (mean) of the moving ranges.
+#' Compute either the average value or the average moving range
 #'
 #' @param data A dataframe with at least two columns.
 #' @param date_col The unquoted name of the column which contains the date for
-#'   each value.
-#' @param moving_range_col The unquoted name of the column which contains the
-#'   difference between successive values, known as the moving ranges.
+#'   either each value or each moving range.
+#' @param value_col he unquoted name of the column which contains either the
+#'   values or the difference between successive values (known as the moving
+#'   ranges).
+#' @param moving_ranges Compute the average of the values (`FALSE`) or the
+#'   average of the moving ranges (`TRUE`)? By default, the average values will
+#'   be returned.
 #' @param ... \code{\link[rlang:args_data_masking]{<data-masking>}} Optionally,
-#'   pass expressions to filter the data, which limits the range of values over
-#'   which the mean will be computed.
+#'   pass expressions to filter the data, which limits the range of values or
+#'   moving ranges over which the mean will be computed.
 #'
 #' @return A numeric value.
 #' @export
@@ -49,22 +51,28 @@ moving_ranges <- function(data, date_col, value_col) {
 #' data_with_MRs <- moving_ranges(pounds_scrapped, date, value)
 #'
 #'# Compute average moving range for values that occur prior to January 2024.
-#' average_moving_range(data_with_MRs, date, moving_range, date < as.Date("2024-01-01"))
-average_moving_range <- function(data, date_col, moving_range_col, ...) {
-  moving_range_avg <- NULL
-
+#' compute_average(
+#'   data_with_MRs,
+#'   date,
+#'   moving_range,
+#'   moving_ranges = TRUE,
+#'   date < as.Date("2024-01-01")
+#' )
+compute_average <- function(data, date_col, value_col, moving_ranges = FALSE, ...) {
   if (nrow(data) < 4) {
-    warning("Dataset must contain at least four rows for moving range calculation.")
-    return(NA_real_)  # Return NA to indicate the calculation can't be performed
+    warning("Dataset must contain at least four rows for calculation.")
+    return(NA_real_)
   }
 
-  mr_avg <- data |>
+  slice_num <- ifelse(moving_ranges == TRUE, -1, 1:nrow(data))
+  avg_name <- dplyr::if_else(moving_ranges == TRUE, "moving_range_avg", "value_avg")
+
+  data_with_average <- data |>
     arrange({{ date_col }}) |>
-    dplyr::slice(-1) |>
+    dplyr::slice(slice_num)|>
     filter(...) |>
-    summarise(moving_range_avg = mean({{ moving_range_col }}, na.rm = TRUE)) |>
-    dplyr::pull(moving_range_avg)
+    summarise({{avg_name}} := mean({{ value_col }}, na.rm = TRUE)) |>
+    dplyr::pull({{avg_name}})
 
-  return(mr_avg)
+  return(data_with_average)
 }
-

@@ -8,7 +8,7 @@
 
 The goal of wheelr is to help R users apply the principles explained in
 Donald J. Wheeler’s book, *Understanding Variation: The Key to Managing
-Chaos”*.
+Chaos*.
 
 ## Installation
 
