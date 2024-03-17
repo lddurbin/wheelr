@@ -31,5 +31,34 @@ test_that("NA values are handled appropriately", {
 
 # average_moving_range ----------------------------------------------------
 
+# Test for basic functionality with average values
+test_that("average value is correctly calculated", {
+  df <- tibble(date = as.Date('2020-01-01') + 0:4, value = c(1, 2, 3, 4, 5))
+  expect_equal(compute_average(df, date, value, moving_ranges = FALSE), mean(c(1, 2, 3, 4, 5)))
+})
+
+# Test for basic functionality with average moving ranges
+test_that("average moving range is correctly calculated", {
+  df_moving_range <- tibble(date = as.Date('2020-01-01') + 0:4, value = c(NA, 1, 1, 1, 1))
+  expect_equal(compute_average(df_moving_range, date, value, moving_ranges = TRUE), mean(c(1, 1, 1, 1), na.rm = TRUE))
+})
+
+# Test handling fewer than four rows
+test_that("function warns with fewer than four rows", {
+  df_few_rows <- tibble(date = as.Date('2020-01-01') + 0:2, value = c(1, 2, 3))
+  expect_warning(compute_average(df_few_rows, date, value, moving_ranges = FALSE))
+})
+
+# Test NA handling
+test_that("NA values are correctly handled", {
+  df_with_na <- tibble(date = as.Date('2020-01-01') + 0:4, value = c(1, NA, 3, NA, 5))
+  expect_equal(compute_average(df_with_na, date, value, moving_ranges = FALSE), mean(c(1, 3, 5), na.rm = TRUE))
+})
+
+# Test filtering works correctly
+test_that("filtering limits the range of values as expected", {
+  df <- tibble(date = as.Date('2020-01-01') + 0:4, value = c(1, 2, 3, 4, 5))
+  expect_equal(compute_average(df, date, value, moving_ranges = FALSE, date < as.Date('2020-01-05')), mean(c(1, 2, 3, 4)))
+})
 
 

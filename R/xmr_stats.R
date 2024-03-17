@@ -64,12 +64,16 @@ compute_average <- function(data, date_col, value_col, moving_ranges = FALSE, ..
     return(NA_real_)
   }
 
-  slice_num <- ifelse(moving_ranges == TRUE, -1, 1:nrow(data))
-  avg_name <- dplyr::if_else(moving_ranges == TRUE, "moving_range_avg", "value_avg")
+  data <- arrange(data, {{ date_col }})
+
+  avg_name <- "value_avg"
+
+  if(moving_ranges == TRUE) {
+    data <- dplyr::slice(data, -1)
+    avg_name <- "moving_range_avg"
+  }
 
   data_with_average <- data |>
-    arrange({{ date_col }}) |>
-    dplyr::slice(slice_num)|>
     filter(...) |>
     summarise({{avg_name}} := mean({{ value_col }}, na.rm = TRUE)) |>
     dplyr::pull({{avg_name}})
