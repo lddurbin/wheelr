@@ -12,7 +12,7 @@ compute_average(data, date_col, value_col, moving_ranges = FALSE, ...)
 \item{date_col}{The unquoted name of the column which contains the date for
 either each value or each moving range.}
 
-\item{value_col}{he unquoted name of the column which contains either the
+\item{value_col}{The unquoted name of the column which contains either the
 values or the difference between successive values (known as the moving
 ranges).}
 

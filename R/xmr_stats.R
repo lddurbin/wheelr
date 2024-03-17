@@ -33,7 +33,7 @@ moving_ranges <- function(data, date_col, value_col) {
 #' @param data A dataframe with at least two columns.
 #' @param date_col The unquoted name of the column which contains the date for
 #'   either each value or each moving range.
-#' @param value_col he unquoted name of the column which contains either the
+#' @param value_col The unquoted name of the column which contains either the
 #'   values or the difference between successive values (known as the moving
 #'   ranges).
 #' @param moving_ranges Compute the average of the values (`FALSE`) or the
@@ -79,4 +79,51 @@ compute_average <- function(data, date_col, value_col, moving_ranges = FALSE, ..
     dplyr::pull({{avg_name}})
 
   return(data_with_average)
+}
+
+
+#' Compute the Upper Range Limit
+#'
+#' @param avg_moving_range Numeric value, expressing the average of the
+#'   moving ranges.
+#'
+#' @return Numeric value.
+#'
+#' @export
+upper_range_limit <- function(avg_moving_range) {
+  url <- round((3.27 * avg_moving_range), 1)
+
+  return(url)
+}
+
+
+#' Compute the Upper Natural Process Limit
+#'
+#' @param avg_moving_range Numeric value, expressing the average of the moving
+#'   ranges.
+#' @param avg_value Numeric value, expressing the average of the values.
+#'
+#' @return Numeric value.
+#'
+#' @export
+upper_natural_process_limit <- function(avg_moving_range, avg_value) {
+  unpl <- round(avg_value + (2.66 * avg_moving_range), 1)
+
+  return(unpl)
+}
+
+
+#' Compute the Lower Natural Process Limit
+#'
+#' @param avg_moving_range Numeric value, expressing the average of the
+#'   moving ranges.
+#' @param avg_value Numeric value, expressing the average of the values.
+#'
+#' @return Numeric value.
+#'
+#' @export
+lower_natural_process_limit <- function(avg_moving_range, avg_value) {
+  lnpl <- round(avg_value - (2.66 * avg_moving_range), 1)
+
+  return(lnpl)
 }
