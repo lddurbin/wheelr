@@ -75,7 +75,7 @@ compute_average <- function(data, date_col, value_col, moving_ranges = FALSE, ..
 
   data_with_average <- data |>
     filter(...) |>
-    summarise({{avg_name}} := mean({{ value_col }}, na.rm = TRUE)) |>
+    summarise({{avg_name}} := round(mean({{ value_col }}, na.rm = TRUE), 1)) |>
     dplyr::pull({{avg_name}})
 
   return(data_with_average)

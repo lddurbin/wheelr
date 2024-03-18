@@ -58,7 +58,10 @@ test_that("NA values are correctly handled", {
 # Test filtering works correctly
 test_that("filtering limits the range of values as expected", {
   df <- tibble(date = as.Date('2020-01-01') + 0:4, value = c(1, 2, 3, 4, 5))
-  expect_equal(compute_average(df, date, value, moving_ranges = FALSE, date < as.Date('2020-01-05')), mean(c(1, 2, 3, 4)))
+  expect_equal(compute_average(
+    df, date, value, moving_ranges = FALSE, date < as.Date('2020-01-05')),
+    round(mean(c(1, 2, 3, 4)), 1)
+    )
 })
 
 
